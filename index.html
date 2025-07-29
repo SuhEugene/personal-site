@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta property="og:title" content="SuhEugene">
+        <meta property="og:description" content="Личная страница SuhEugene, на которой представлены все контакты, используя которые можно с ним связаться">
+        <meta property="og:image" content="https://suheugene.ru/se.png">
+        <meta property="og:url" content="https://suheugene.ru/">
+        <meta property="og:type" content="website">
+        <meta name="theme-color" content="#1A1D22">
+        <title>SuhEugene</title>
+        <link rel="icon" type="image/png" href="/se-rounded.png">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap">
+    </head>
+    <body>
+        <style>
+            * {
+              margin: 0;
+              box-sizing: border-box;
+              outline: none!important;
+            }
+            
+            body, html {
+              height: 100%;
+              font-family: "Noto Sans", Arial, sans-serif;
+              font-size: 16px;
+            }
+            body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #222;
+            }
+            a {
+              color: #2233ff;
+              outline: none;
+              text-decoration: none;
+              position: relative;
+              transition: .13s opacity;
+            }
+            a:hover { text-decoration: underline; }
+            a:active { opacity: .8; }
+            .container {
+                padding: 24px 32px;
+                border: 1px solid #aaa;
+                border-radius: 16px;
+                max-width: 800px;
+            }
+            a.copied-popup::before {
+                position: absolute;
+                top: calc(-100% - 10px);
+                content: "Скопировано";
+                display: block;
+                color: white;
+                background: black;
+                border-radius: 8px;
+                padding: 5px 10px;
+                border: 1px solid #313140;
+                left: -14%;
+                animation: fadeout 0.75s ease-out 1s 1 both;
+                pointer-events: none;
+            }
+            @keyframes fadeout {
+                from { opacity: 1; }
+                to   { opacity: 0; }
+            }
+            
+            h1,h2,h3,h4 { color: black; }
+            h1 { margin-bottom: 8px; }
+            h2 { margin-bottom: 4px; }
+            #heart { height: 16px; width: 16px; vertical-align: middle; margin: 0 2px; }
+            @media (max-width: 500px) {
+                .container { padding: 18px 24px; margin: 4px; }
+            }
+            @media (prefers-color-scheme: dark) {
+                body { color: #ddd; background: #050b10; }
+                .container { border-color: #313140;}
+                h1,h2,h3,h4 { color: white; }
+                a { color: #7788ff; }
+            }
+        </style>
+        <div class="container">
+            <h1>Я - SuhEugene</h1>
+            <p>&mdash; Мой телеграм - <a target="_blank" href="https://t.me/suheugene">@suheugene</a></p>
+            <p>&mdash; Дискорд - тоже <a id="ds" onclick="copyDiscord()" href="javascript:void(0)">@suheugene</a></p>
+            <p>&mdash; BlueSky - <a target="_blank" href="https://bsky.app/profile/suheugene.ru">@suheugene.ru</a></p>
+            <p>Хорошего дня <img id="heart" src="/red-heart-apple.png" alt="♥" draggable=false></p>
+        </div>
+        <script>
+            const ds = document.getElementById("ds");
+            function copyDiscord() {
+                navigator.clipboard.writeText("suheugene").then(() => {
+                    ds.classList.remove("copied-popup");
+                    setTimeout(()=> ds.classList.add("copied-popup"), 50);
+                    try { window.navigator.vibrate(35); } catch (e) {}
+                });
+            }
+        </script>
+    </body>
+</html>

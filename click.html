@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SuhEugene</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <style>
+            * {
+              margin: 0;
+              box-sizing: border-box;
+              transition: .13s all;
+              outline: none!important;
+            }
+            
+            body, html {
+              height: 100%;
+              font-family: "Noto Sans", Arial, sans-serif;
+              font-size: 16px;
+            }
+            body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #222;
+            }
+            a {
+              color: #2233ff;
+              outline: none;
+              text-decoration: none;
+            }
+            a:hover { text-decoration: underline; }
+            a:active { opacity: .8; }
+            .container {
+                padding: 24px 32px;
+                border: 1px solid #aaa;
+                border-radius: 16px;
+                max-width: 800px;
+            }
+            h1,h2,h3,h4 { color: black; }
+            h1 { margin-bottom: 8px; }
+            h2 { margin-bottom: 4px; }
+            #heart { height: 16px; width: 16px; vertical-align: middle; margin: 0 2px; }
+            @media (max-width: 500px) {
+                .container { padding: 18px 24px; margin: 4px; }
+            }
+            @media (prefers-color-scheme: dark) {
+                body { color: #ddd; background: #050b10; }
+                .container { border-color: #262635;}
+                h1,h2,h3,h4 { color: white; }
+                a { color: #7788ff; }
+            }
+        </style>
+        <div id="cl" class="container">
+            <h1 id="h1">Клики: </h1>
+        </div>
+    <script>
+        const cl = document.getElementById("cl");
+        const h1 = document.getElementById("h1");
+        let i = 0;
+        cl.addEventListener("click", (e) =>{
+            i++;
+            h1.innerHTML = "Клики: " + i;
+        })
+    </script>
+    </body>
+</html>

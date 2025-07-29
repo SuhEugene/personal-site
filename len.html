@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SuhEugene</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+      <style>
+        * {
+          margin: 0;
+          box-sizing: border-box;
+          outline: none!important;
+        }
+        
+        body, html {
+          height: 100%;
+          font-family: "Noto Sans", Arial, sans-serif;
+          font-size: 16px;
+        }
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #222;
+        }
+        a {
+          color: #2233ff;
+          outline: none;
+          text-decoration: none;
+          position: relative;
+          transition: .13s opacity;
+        }
+        a:hover { text-decoration: underline; }
+        a:active { opacity: .8; }
+        .container {
+            padding: 24px 32px;
+            border: 1px solid #aaa;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 500px;
+        }
+        a.copied-popup::before {
+            position: absolute;
+            top: calc(-100% - 10px);
+            content: "Скопировано";
+            display: block;
+            color: white;
+            background: black;
+            border-radius: 8px;
+            padding: 5px 10px;
+            border: 1px solid #313140;
+            left: -14%;
+            animation: fadeout 0.75s ease-out 1s 1 both;
+            pointer-events: none;
+        }
+        #percent { white-space: pre; font-family: monospace; }
+        @keyframes fadeout {
+            from { opacity: 1; }
+            to   { opacity: 0; }
+        }
+        
+        h1,h2,h3,h4 { color: black; }
+        h1 { margin-bottom: 8px; }
+        h2 { margin-bottom: 4px; }
+        #heart { height: 16px; width: 16px; vertical-align: middle; margin: 0 2px; }
+        @media (max-width: 500px) {
+            .container { padding: 18px 24px; margin: 4px; }
+        }
+    
+    
+        .slidecontainer {
+          display: flex;
+          flex-direction: row;
+          gap: 12px;
+          width: 100%; /* Width of the outside container */
+          justify-content: center;
+          align-items: center;
+        }
+    
+        /* The slider itself */
+        .slider {
+          -webkit-appearance: none;  /* Override default CSS styles */
+          appearance: none;
+          width: 100%; /* Full-width */
+          height: 10px; /* Specified height */
+          background: transparent; /* Grey background */
+          border: 1px solid #aaa;
+          outline: none; /* Remove outline */
+          -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+          transition: opacity .2s;
+          border-radius: 20px;
+        }
+    
+        /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+        .slider::-webkit-slider-thumb {
+          -webkit-appearance: none; /* Override default look */
+          appearance: none;
+          width: 18px; /* Set a specific slider handle width */
+          height: 18px; /* Slider handle height */
+          background: #b61b7a; /* Green background */
+          cursor: pointer; /* Cursor on hover */
+          border-radius: 50%;
+        }
+    
+        .slider:hover::-webkit-slider-thumb {
+          opacity: 1; /* Fully shown on mouse-over */
+        }
+    
+        .slider::-moz-range-thumb {
+          width: 18px; /* Set a specific slider handle width */
+          height: 108x; /* Slider handle height */
+          background: #b61b7a; /* Green background */
+          cursor: pointer; /* Cursor on hover */
+          border-radius: 50%;
+        }
+    
+        .buttonrow {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+        }
+    
+        button {
+          background: transparent;
+          border: 1px solid #aaa;
+          font-family: inherit;
+          color: inherit;
+          padding: 6px 12px;
+          border-radius: 6px;
+        }
+        button:hover { background-color: #00000010; cursor: pointer; }
+    
+        @media (prefers-color-scheme: dark) {
+          body { color: #ddd; background: #050b10; }
+          .container { border-color: #313140;}
+          .slider { border-color: #313140;}
+          button { border-color: #313140;}
+          button:hover { background-color: #ffffff10; }
+          h1,h2,h3,h4 { color: white; }
+          a { color: #7788ff; }
+        }
+
+        #h1 { text-align: center; }
+    </style>
+    <div class="container">
+        <h1 id="h1">Click to start</h1>
+        <div class="slidecontainer" style="margin-top: 20px;">
+          <input type="range" min="1" max="10" value="4" step="1" class="slider" id="range">
+          <div id="percent"> 0</div>
+        </div>
+    </div>
+    <script>
+        const h1 = document.getElementById("h1");
+
+        const slider = document.getElementById("range");
+        const percent = document.getElementById("percent");
+
+        let step = 0;
+        let len = 4;
+
+        const topRow = "bd";
+        const bottomRow = "pq";
+
+        let stepInterval;
+        let updateInterval;
+
+        function startInterval() {
+            if (!stepInterval)
+              stepInterval = setInterval(doStep, 150);
+            if (!updateInterval)
+              updateInterval = setInterval(updateSlider, 50);
+        }
+
+        function updateSlider() {
+          len = slider.value * 2;
+          percent.innerText = String(len).padStart(2, ' ');
+        }
+
+        function doStep() {
+          const steps = (len * 2);
+          step = (step + 1) % steps;
+          doopdo();
+        }
+        
+        function doopdo() {
+            const steps = (len * 2);
+
+            let text = "";
+            for (let i = 0; i < steps; i += 2) {
+              const topCheck = checkCol(i, step, false);
+              const bottomCheck = checkCol(steps - i - 1, step, true);
+              if (topCheck) text += topCheck;
+              else if (bottomCheck) text += bottomCheck;
+              else text += "o";
+            }
+
+            h1.innerText = text;
+        }
+
+        function checkCol(index, step, isBottom) {
+          let row = topRow;
+          if (isBottom) row = bottomRow;
+
+          if (index === step)
+            return row[0];
+          if ((index + ((-1) ** isBottom)) === step)
+            return row[1];
+
+          return false;
+        }
+
+        document.addEventListener("click", startInterval);
+        slider.addEventListener("change", updateSlider);
+        startInterval();
+    </script>
+    </body>
+</html>
